@@ -51,4 +51,11 @@ dependencies {
 
     // DataBinding
     kapt("androidx.databinding:databinding-compiler:8.2.2")
+
+    // ViewModel
+    val lifecycleVersion = "2.7.0"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.activity:activity-ktx:$lifecycleVersion")
+    implementation("androidx.fragment:fragment-ktx:$lifecycleVersion")
 }
