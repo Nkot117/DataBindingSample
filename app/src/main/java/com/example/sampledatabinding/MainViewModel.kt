@@ -14,13 +14,6 @@ class MainViewModel : ViewModel() {
     val tasks: LiveData<List<Task>> = _tasks
     val taskCount: LiveData<Int> = _tasks.map { it?.size ?: 0 }
     val taskName: MutableLiveData<String> = MutableLiveData<String>()
-    init {
-        _tasks.value = listOf(
-            Task("Task 1"),
-            Task("Task 2"),
-            Task("Task 3")
-        )
-    }
 
     fun addTask() {
         val taskList = _tasks.value?.toMutableList() ?: mutableListOf()
