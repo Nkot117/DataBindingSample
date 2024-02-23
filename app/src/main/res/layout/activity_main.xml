@@ -2,10 +2,9 @@
 <layout>
 
     <data>
-
-    <variable
-        name="viewModel"
-        type="com.example.sampledatabinding.MainViewModel" />
+        <variable
+            name="viewModel"
+            type="com.example.sampledatabinding.MainViewModel" />
     </data>
 
 
@@ -17,13 +16,36 @@
         tools:context=".MainActivity">
 
         <TextView
+            android:id="@+id/task_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(viewModel.taskCount)}"
             android:layout_marginTop="10dp"
+            android:text="@{Integer.toString(viewModel.taskCount)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/add_task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:ems="10"
+            android:text="@={viewModel.taskName}"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/task_count"
+            app:layout_goneMarginTop="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:onClick="@{() -> viewModel.addTask()}"
+            android:text="Add Task"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
