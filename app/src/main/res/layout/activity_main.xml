@@ -4,7 +4,8 @@
     <data>
 
     <variable
-        name="count"  type="Integer" />
+        name="viewModel"
+        type="com.example.sampledatabinding.MainViewModel" />
     </data>
 
 
@@ -18,7 +19,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(count)}"
+            android:text="@{Integer.toString(viewModel.taskCount)}"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
