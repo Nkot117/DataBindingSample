@@ -7,14 +7,16 @@ import com.example.sampledatabinding.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val viewModel by lazy { MainViewModel() }
-    private val itemAdapter by lazy { ItemAdapter() }
+    private lateinit var itemAdapter: ItemAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        binding.taskList.adapter = itemAdapter
+        binding.taskList.adapter = ItemAdapter(this, viewModel).also {
+            itemAdapter = it
+        }
 
         viewModel.tasks.observe(this) {
             itemAdapter.submitList(it)
