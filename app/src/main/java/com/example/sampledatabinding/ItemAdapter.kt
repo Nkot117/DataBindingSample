@@ -4,26 +4,38 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sampledatabinding.databinding.ListItemBinding
 
-class ItemAdapter(private val context: Context, private val items: List<Task>) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
-
-    class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view){
-        val taskName: TextView = view.findViewById(R.id.item_title)
+class ItemAdapter : ListAdapter<Task, ItemAdapter.ViewHolder>(DiffCallback) {
+    class ViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(task: Task) {
+            binding.itemTitle.text = task.name
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
-        return ItemViewHolder(layout)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = ListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val current = getItem(position)
+        holder.bind(current)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = items[position]
-        holder.taskName.text = item.name
+    object DiffCallback : DiffUtil.ItemCallback<Task>() {
+        override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+            return oldItem.name == newItem.name
+        }
     }
+
 }
