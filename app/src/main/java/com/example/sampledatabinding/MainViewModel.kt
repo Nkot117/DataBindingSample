@@ -8,8 +8,11 @@ import androidx.lifecycle.map
 class MainViewModel : ViewModel() {
     private val _tasks: MutableLiveData<List<Task>> = MutableLiveData()
     val tasks: LiveData<List<Task>> = _tasks
+    private val _selectedTask: MutableLiveData<Task> = MutableLiveData()
+    val selectedTask: LiveData<Task> = _selectedTask
     val taskCount: LiveData<Int> = _tasks.map { it?.size ?: 0 }
     val taskName: MutableLiveData<String> = MutableLiveData<String>()
+
 
     fun addTask() {
         val taskList = _tasks.value?.toMutableList() ?: mutableListOf()
@@ -18,5 +21,9 @@ class MainViewModel : ViewModel() {
             _tasks.value = taskList
             taskName.value = ""
         }
+    }
+
+    fun onClickTask(task: Task) {
+        _selectedTask.value = task
     }
 }
